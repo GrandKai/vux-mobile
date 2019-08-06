@@ -4,10 +4,12 @@
     <mt-loadmore :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" @top-status-change="handleTopChange" ref="loadmore">
       <ul id="dataList" class="data-list">
         <li v-for="item in dataList" :key="item.id">
-          <img class="pd-img" :src="item.coverImage"/>
-          <p class="pd-name">{{item.title}}</p>
-          <p class="pd-price">{{item.clickAmount}} 元</p>
-          <p class="pd-sold">已售{{item.clickAmount}}件</p>
+          <div @click="onClickInformation(item.id)">
+            <img class="pd-img" :src="item.coverImage"/>
+            <p class="pd-name">{{item.title}}</p>
+            <p class="pd-price">{{item.clickAmount}} 元</p>
+            <p class="pd-sold">已售{{item.clickAmount}}件</p>
+          </div>
         </li>
       </ul>
       <div slot="top" class="mint-loadmore-top">
@@ -46,6 +48,13 @@
       // this.queryInformationList()
     },
     methods: {
+      onClickInformation (id) {
+        console.log('点击了资讯详情:', id)
+        this.$router.push({
+          path: '/information',
+          query: {'id': id}
+        })
+      },
       handleTopChange (status) {
         this.topStatus = status
       },
